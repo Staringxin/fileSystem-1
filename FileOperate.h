@@ -1,79 +1,79 @@
 #ifndef FILEOPERATE_H_INCLUDED
 #define FILEOPERATE_H_INCLUDED
 
-//ÎÄ¼ş²Ù×÷
+//æ–‡ä»¶æ“ä½œ
 #include"DiskOperate.h"
 
-#define dirTable_max_size 15    //Ä¿Â¼±íÏî×î´óÖµ
+#define dirTable_max_size 15    //ç›®å½•è¡¨é¡¹æœ€å¤§å€¼
 
-//Ä¿Â¼Ïî 64B
+//ç›®å½•é¡¹ 64B
 struct dirUnit{
-    char fileName[59];  //ÎÄ¼şÃû
-    char type;  //ÎÄ¼şÀàĞÍ,0Ä¿Â¼£¬ 1ÎÄ¼ş
-    int startBlock; //ÆğÊ¼ÅÌ¿é
+    char fileName[59];  //æ–‡ä»¶å
+    char type;  //æ–‡ä»¶ç±»å‹,0ç›®å½•ï¼Œ 1æ–‡ä»¶
+    int startBlock; //èµ·å§‹ç›˜å—
 };
-//Ä¿Â¼±í
-    //Ò»¸öÄ¿Â¼±íÕ¼ÓÃÒ»¸öÅÌ¿é£¬ÔÊĞí×î¶àÎÄ¼şÊıÎª15
+//ç›®å½•è¡¨
+    //ä¸€ä¸ªç›®å½•è¡¨å ç”¨ä¸€ä¸ªç›˜å—ï¼Œå…è®¸æœ€å¤šæ–‡ä»¶æ•°ä¸º15
 struct dirTable {
-    int dirUnitAmount;//Ä¿Â¼ÏîÊıÄ¿
-    dirUnit dirs[dirTable_max_size];//Ä¿Â¼ÏîÁĞ±í
+    int dirUnitAmount;//ç›®å½•é¡¹æ•°ç›®
+    dirUnit dirs[dirTable_max_size];//ç›®å½•é¡¹åˆ—è¡¨
 };
 
 //FCB
 struct FCB {
-    int blockNum;   //ÎÄ¼şÊı¾İÆğÊ¼ÅÌ¿éºÅ
-    int fileSize;   //ÎÄ¼ş´óĞ¡£¬ÅÌ¿éÎªµ¥Î»
-    int dataSize;   //ÒÑĞ´ÈëµÄÄÚÈİ´óĞ¡£¬×Ö½ÚÎªµ¥Î»
-    int readptr;    //¶ÁÖ¸Õë£¬×Ö½ÚÎªµ¥Î»
-    int link;   //ÎÄ¼şÁ´½ÓÊı
+    int blockNum;   //æ–‡ä»¶æ•°æ®èµ·å§‹ç›˜å—å·
+    int fileSize;   //æ–‡ä»¶å¤§å°ï¼Œç›˜å—ä¸ºå•ä½
+    int dataSize;   //å·²å†™å…¥çš„å†…å®¹å¤§å°ï¼Œå­—èŠ‚ä¸ºå•ä½
+    int readptr;    //è¯»æŒ‡é’ˆï¼Œå­—èŠ‚ä¸ºå•ä½
+    int link;   //æ–‡ä»¶é“¾æ¥æ•°
 };
 
-//ÎÄ¼şÏµÍ³²Ù×÷
-//³õÊ¼»¯¸ùÄ¿Â¼
+//æ–‡ä»¶ç³»ç»Ÿæ“ä½œ
+//åˆå§‹åŒ–æ ¹ç›®å½•
 void initRootDir();
-//Õ¹Ê¾¾ø¶ÔÂ·¾¶
+//å±•ç¤ºç»å¯¹è·¯å¾„
 char* getPath();
-//Õ¹Ê¾µ±Ç°Ä¿Â¼ÎÄ¼ş
+//å±•ç¤ºå½“å‰ç›®å½•æ–‡ä»¶
 void showDir();
-//´´½¨Ä¿Â¼
+//åˆ›å»ºç›®å½•
 int creatDir(char dirName[]);
-//ÇĞ»»Ä¿Â¼
+//åˆ‡æ¢ç›®å½•
 int changeDir(char dirName[]);
-//É¾³ıÄ¿Â¼
+//åˆ é™¤ç›®å½•
 int deleteDir(char fileName[]);
-//ĞŞ¸ÄÎÄ¼şÃû»òÕßÄ¿Â¼Ãû
+//ä¿®æ”¹æ–‡ä»¶åæˆ–è€…ç›®å½•å
 int changeName(char oldName[], char newName[]);
 
-//´´½¨ÎÄ¼ş
+//åˆ›å»ºæ–‡ä»¶
 int creatFile(char fileName[], int fileSize);
-//É¾³ıÎÄ¼ş
+//åˆ é™¤æ–‡ä»¶
 int deleteFile(char fileName[]);
 
 
-//¶ÁÎÄ¼ş
+//è¯»æ–‡ä»¶
 int read(char fileName[], int length);
-//ÖØĞÂ¶ÁÎÄ¼ş
+//é‡æ–°è¯»æ–‡ä»¶
 int reread(char fileName[], int length);
-//Ö´ĞĞ¶Á²Ù×÷
+//æ‰§è¡Œè¯»æ“ä½œ
 int doRead(FCB* myFCB, int length);
-//Ğ´ÎÄ¼ş£¬´ÓÄ©Î²Ğ´Èë
+//å†™æ–‡ä»¶ï¼Œä»æœ«å°¾å†™å…¥
 int write(char fileName[], char content[]);
-//ÖØĞÂĞ´¸²¸Ç
+//é‡æ–°å†™è¦†ç›–
 int rewrite(char fileName[], char content[]);
-//Ö´ĞĞĞ´²Ù×÷
+//æ‰§è¡Œå†™æ“ä½œ
 int doWrite(FCB* myFCB, char content[]);
 
-//ÊÍ·ÅÎÄ¼şÄÚ´æ
+//é‡Šæ”¾æ–‡ä»¶å†…å­˜
 int releaseFile(int FCBBlock);
-//Ìí¼ÓÄ¿Â¼Ïî
+//æ·»åŠ ç›®å½•é¡¹
 int addDirUnit(dirTable* currentDirTable, char fileName[], int type, int FCBBlockNum);
-//´´½¨FCB
+//åˆ›å»ºFCB
 int creatFCB(int fcbBlockNum, int fileBlockNum, int fileSize);
-//Ö¸¶¨Ä¿Â¼É¾³ı
+//æŒ‡å®šç›®å½•åˆ é™¤
 int deleteFileInTable(dirTable* myDirTable, int unitIndex);
-//É¾³ıÄ¿Â¼Ïî
+//åˆ é™¤ç›®å½•é¡¹
 int deleteDirUnit(dirTable* currentDirTable, int unitIndex);
-//´ÓÄ¿Â¼ÖĞ²éÕÒÄ¿Â¼ÏîÄ¿
+//ä»ç›®å½•ä¸­æŸ¥æ‰¾ç›®å½•é¡¹ç›®
 int findUnitInTable(dirTable* currentDirTable, char unitName[]);
 
 

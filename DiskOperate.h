@@ -1,20 +1,20 @@
 #ifndef DISKOPERATE_H_INCLUDED
 #define DISKOPERATE_H_INCLUDED
-//´ÅÅÌ²Ù×÷½Ó¿Ú
-#define system_size 100*1024*1024   //ÏµÍ³´óĞ¡
-#define block_szie 1024 //ÅÌ¿é´óĞ¡
-#define block_count system_size/block_szie //ÏµÍ³ÅÌ¿éÊıÄ¿
+//ç£ç›˜æ“ä½œæ¥å£
+#define system_size 100*1024*1024   //ç³»ç»Ÿå¤§å°
+#define block_szie 1024 //ç›˜å—å¤§å°
+#define block_count system_size/block_szie //ç³»ç»Ÿç›˜å—æ•°ç›®
 
-//³õÊ¼»¯ÏµÍ³
+//åˆå§‹åŒ–ç³»ç»Ÿ
 void initSystem();
-//´ÅÅÌ·ÖÅä
+//ç£ç›˜åˆ†é…
 int getBlock(int blockSize) ;
-//»ñµÃÅÌ¿éµÄÎïÀíµØÖ·
+//è·å¾—ç›˜å—çš„ç‰©ç†åœ°å€
 char* getBlockAddr(int blockNum);
-//»ñµÃÎïÀíµØÖ·µÄÅÌ¿éºÅ
+//è·å¾—ç‰©ç†åœ°å€çš„ç›˜å—å·
 int getAddrBlock(char* addr);
-//ÊÍ·ÅÅÌ¿é¡¢
+//é‡Šæ”¾ç›˜å—ã€
 int releaseBlock(int blockNum, int blockSize);
-//ÍË³öÏµÍ³
+//é€€å‡ºç³»ç»Ÿ
 void exitSystem();
 #endif // DISKOPERATE_H_INCLUDED

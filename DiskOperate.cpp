@@ -5,68 +5,68 @@
 
 
 
-char* systemStartAddr;  //ÏµÍ³ÆğÊ¼µØÖ·
+char* systemStartAddr;  //ç³»ç»Ÿèµ·å§‹åœ°å€
 
-//³õÊ¼»¯ÏµÍ³
+//åˆå§‹åŒ–ç³»ç»Ÿ
 void initSystem()
 {
-    //´´½¨¿Õ¼ä
+    //åˆ›å»ºç©ºé—´
     systemStartAddr = (char*)malloc(system_size * sizeof(char));
-    //³õÊ¼»¯ÅÌ¿éµÄÎ»Ê¾Í¼
+    //åˆå§‹åŒ–ç›˜å—çš„ä½ç¤ºå›¾
     for(int i=0; i<block_count; i++)
         systemStartAddr[i] = '0';
-    //ÓÃÓÚ´æ·ÅÎ»Ê¾Í¼µÄ¿Õ¼äÒÑ±»Õ¼ÓÃ
-    int bitMapSize = block_count * sizeof(char) / block_szie;//Î»Ê¾Í¼Õ¼ÓÃÅÌ¿éÊı:100
-    for(int i=0; i<bitMapSize; i++)//´ÓÁã¿ªÊ¼·ÖÅä
-        systemStartAddr[i] = '1';   //ÅÌ¿éÒÑ±»Ê¹ÓÃ
+    //ç”¨äºå­˜æ”¾ä½ç¤ºå›¾çš„ç©ºé—´å·²è¢«å ç”¨
+    int bitMapSize = block_count * sizeof(char) / block_szie;//ä½ç¤ºå›¾å ç”¨ç›˜å—æ•°:100
+    for(int i=0; i<bitMapSize; i++)//ä»é›¶å¼€å§‹åˆ†é…
+        systemStartAddr[i] = '1';   //ç›˜å—å·²è¢«ä½¿ç”¨
 }
-//ÍË³öÏµÍ³
+//é€€å‡ºç³»ç»Ÿ
 void exitSystem()
 {
     free(systemStartAddr);
 }
-//´ÅÅÌ·ÖÅä
+//ç£ç›˜åˆ†é…
 int getBlock(int blockSize)
 {
     int startBlock = 0;
     int sum=0;
     for(int i=0; i<block_count; i++)
     {
-        if(systemStartAddr[i] == '0')//¿ÉÓÃÅÌ¿é
+        if(systemStartAddr[i] == '0')//å¯ç”¨ç›˜å—
         {
-            if(sum == 0)//¸Õ¿ªÊ¼£¬ÉèÖÃ¿ªÊ¼ÅÌ¿éºÅ
+            if(sum == 0)//åˆšå¼€å§‹ï¼Œè®¾ç½®å¼€å§‹ç›˜å—å·
                 startBlock = i;
             sum++;
-            if(sum == blockSize)//Á¬ĞøÅÌ¿éÊÇ·ñÂú×ãĞèÇó
+            if(sum == blockSize)//è¿ç»­ç›˜å—æ˜¯å¦æ»¡è¶³éœ€æ±‚
             {
-                //Âú×ã·ÖÅä£¬ÖÃ1
+                //æ»¡è¶³åˆ†é…ï¼Œç½®1
                 for(int j=startBlock; j<startBlock+blockSize; j++)
                     systemStartAddr[j] = '1';
                 return startBlock;
             }
 
         }
-        else//ÒÑ±»Ê¹ÓÃ,Á¬ĞøÒÑ¾­±»´ò¶Ï
+        else//å·²è¢«ä½¿ç”¨,è¿ç»­å·²ç»è¢«æ‰“æ–­
             sum = 0;
     }
     printf("not found such series memory Or memory is full\n");
     return -1;
 }
-//»ñµÃÅÌ¿éµÄÎïÀíµØÖ·
+//è·å¾—ç›˜å—çš„ç‰©ç†åœ°å€
 char* getBlockAddr(int blockNum)
 {
-    return systemStartAddr + blockNum * block_szie; //Æ«ÒÆÁ¿µ¥Î»Îª×Ö½Ú
+    return systemStartAddr + blockNum * block_szie; //åç§»é‡å•ä½ä¸ºå­—èŠ‚
 }
-//»ñµÃÎïÀíµØÖ·µÄÅÌ¿éºÅ
+//è·å¾—ç‰©ç†åœ°å€çš„ç›˜å—å·
 int getAddrBlock(char* addr)
 {
     return (addr - systemStartAddr)/block_szie;
 }
-//ÊÍ·ÅÅÌ¿é¡¢
+//é‡Šæ”¾ç›˜å—ã€
 int releaseBlock(int blockNum, int blockSize)
 {
     int endBlock = blockNum + blockSize;
-    //ĞŞ¸ÄÎ»Ê¾Í¼ÅÌ¿éµÄÎ»ÖÃÎª0
+    //ä¿®æ”¹ä½ç¤ºå›¾ç›˜å—çš„ä½ç½®ä¸º0
     for(int i=blockNum; i<endBlock; i++)
         systemStartAddr[i] = '0';
     return 0;

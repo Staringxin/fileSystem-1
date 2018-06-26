@@ -1,10 +1,10 @@
 /*
-*´ÅÅÌ¿Õ¼ä²ÉÓÃÁ¬Ğø·ÖÅäµÄ·½Ê½£¬ÒÔ1kB×÷ÎªÅÌ¿ìÎª·ÖÅäµ¥Î»£¬²ÉÓÃÎ»Ê¾Í¼¼ÇÂ¼ÅÌ¿é·ÖÅäÇé¿ö£¨Î»ÓÚÅÌ¿é0£©
-*ÏµÍ³¹²ÓĞ100k¸öÅÌ¿é£¬Ç°100¸öÅÌ¿éÓÃÓÚ´æ·ÅÎ»Í¼±í£¨char[]£©
-*ÎÄ¼şÄ¿Â¼²ÉÓÃÊ÷×´Ä¿Â¼£¬ÏµÍ³´´Ê¼»¯Ò»ÕÅ¸ùÄ¿Â¼±í£¨ÓÃ»§³õÊ¼Î»ÖÃ£©£»Õ¼ÓÃÒ»¸öÅÌ¿é
-*Ä¿Â¼Ïî£ºÎÄ¼şÃû£¬FCBÅÌ¿éºÅ£¬ÎÄ¼şÀàĞÍ
-*ÎÄ¼ş¿ØÖÆ¿éFCB£ºÎÄ¼şÊı¾İÆğÊ¼ÅÌ¿éºÅ£¬ÎÄ¼ş´óĞ¡£¬Á´½ÓÊı,¶ÁÖ¸Õë£¬Êı¾İ´óĞ¡£»Õ¼ÓÃÒ»¸öÅÌ¿é
-*ÎÄ¼şÊı¾İºÍFCB·Ö¿ª´æ·Å
+*ç£ç›˜ç©ºé—´é‡‡ç”¨è¿ç»­åˆ†é…çš„æ–¹å¼ï¼Œä»¥1kBä½œä¸ºç›˜å¿«ä¸ºåˆ†é…å•ä½ï¼Œé‡‡ç”¨ä½ç¤ºå›¾è®°å½•ç›˜å—åˆ†é…æƒ…å†µï¼ˆä½äºç›˜å—0ï¼‰
+*ç³»ç»Ÿå…±æœ‰100kä¸ªç›˜å—ï¼Œå‰100ä¸ªç›˜å—ç”¨äºå­˜æ”¾ä½å›¾è¡¨ï¼ˆchar[]ï¼‰
+*æ–‡ä»¶ç›®å½•é‡‡ç”¨æ ‘çŠ¶ç›®å½•ï¼Œç³»ç»Ÿåˆ›å§‹åŒ–ä¸€å¼ æ ¹ç›®å½•è¡¨ï¼ˆç”¨æˆ·åˆå§‹ä½ç½®ï¼‰ï¼›å ç”¨ä¸€ä¸ªç›˜å—
+*ç›®å½•é¡¹ï¼šæ–‡ä»¶åï¼ŒFCBç›˜å—å·ï¼Œæ–‡ä»¶ç±»å‹
+*æ–‡ä»¶æ§åˆ¶å—FCBï¼šæ–‡ä»¶æ•°æ®èµ·å§‹ç›˜å—å·ï¼Œæ–‡ä»¶å¤§å°ï¼Œé“¾æ¥æ•°,è¯»æŒ‡é’ˆï¼Œæ•°æ®å¤§å°ï¼›å ç”¨ä¸€ä¸ªç›˜å—
+*æ–‡ä»¶æ•°æ®å’ŒFCBåˆ†å¼€å­˜æ”¾
 */
 
 #include"FileOperate.h"
@@ -14,19 +14,19 @@
 #include <string.h>
 //using namespace std;
 
-//Êä³ö°ïÖú
+//è¾“å‡ºå¸®åŠ©
 void help();
 
 int main()
 {
-    //---½ø³ÌÍ¬²½¶ÁĞ´
-    //int readCount = 0; //µ±Ç°ÔÄ¶ÁÈËÊı
-    //semaphore rmutex = 1; //readCount»¥³â·ÃÎÊ
-    //semaphore mutex = 1;  //½ø³Ì¶ÔÎÄ¼şµÄ»¥³â·ÃÎÊ
+    //---è¿›ç¨‹åŒæ­¥è¯»å†™
+    //int readCount = 0; //å½“å‰é˜…è¯»äººæ•°
+    //semaphore rmutex = 1; //readCountäº’æ–¥è®¿é—®
+    //semaphore mutex = 1;  //è¿›ç¨‹å¯¹æ–‡ä»¶çš„äº’æ–¥è®¿é—®
 
-    //³õÊ¼»¯ÏµÍ³
+    //åˆå§‹åŒ–ç³»ç»Ÿ
     initSystem();
-    //´´½¨¸ùÄ¿Â¼
+    //åˆ›å»ºæ ¹ç›®å½•
     initRootDir();
 
     help();
@@ -35,51 +35,51 @@ int main()
     scanf("%s", command);
     while(strcmp(command, "quit") != 0)
     {
-        if(strcmp(command, "ls") == 0)//ÁĞ³öÄ¿Â¼ÏÂËùÓĞÎÄ¼ş
+        if(strcmp(command, "ls") == 0)//åˆ—å‡ºç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶
         {
             showDir();
             //printf("ls\n");
-        }else if(strcmp(command, "help") == 0)//°ïÖú
+        }else if(strcmp(command, "help") == 0)//å¸®åŠ©
         {
             help();
-        }else if(strcmp(command, "cd") == 0)//ÇĞ»»Ä¿Â¼
+        }else if(strcmp(command, "cd") == 0)//åˆ‡æ¢ç›®å½•
         {
             char name[59];
             scanf("%s", name);
             changeDir(name);
-        }else if(strcmp(command, "pwd") == 0)//ÏÔÊ¾Ä¿Â¼
+        }else if(strcmp(command, "pwd") == 0)//æ˜¾ç¤ºç›®å½•
         {
             printf("%s\n", getPath());
-        }else if(strcmp(command, "mkdir") == 0)//´´½¨Ä¿Â¼
+        }else if(strcmp(command, "mkdir") == 0)//åˆ›å»ºç›®å½•
         {
             char name[59];
             scanf("%s", name);
             creatDir(name);
-        }else if(strcmp(command, "rmdir") == 0)//É¾³ıÄ¿Â¼
+        }else if(strcmp(command, "rmdir") == 0)//åˆ é™¤ç›®å½•
         {
             char name[59];
             scanf("%s", name);
             deleteDir(name);
-        }else if(strcmp(command, "mv") == 0)//ĞŞ¸ÄÎÄ¼ş»òÕßÄ¿Â¼Ãû
+        }else if(strcmp(command, "mv") == 0)//ä¿®æ”¹æ–‡ä»¶æˆ–è€…ç›®å½•å
         {
             char oldname[59];
             scanf("%s", oldname);
             char newname[59];
             scanf("%s", newname);
             changeName(oldname, newname);
-        }else if(strcmp(command, "touch") == 0)//´´½¨ÎÄ¼ş
+        }else if(strcmp(command, "touch") == 0)//åˆ›å»ºæ–‡ä»¶
         {
             char name[59];
             scanf("%s", name);
             int fileSize;
             scanf("%d", &fileSize);
             creatFile(name, fileSize);
-        }else if(strcmp(command, "rm") == 0)//É¾³ıÎÄ¼ş
+        }else if(strcmp(command, "rm") == 0)//åˆ é™¤æ–‡ä»¶
         {
             char name[59];
             scanf("%s", name);
             deleteFile(name);
-        }else if(strcmp(command, "read") == 0)//¶ÁÈ¡ÎÄ¼ş
+        }else if(strcmp(command, "read") == 0)//è¯»å–æ–‡ä»¶
         {
             char name[59];
             scanf("%s", name);
@@ -100,7 +100,7 @@ int main()
                 signal(mutex);
             signal(rmutex);
             */
-        }else if(strcmp(command, "reread") == 0)//ÖØÉè¶ÁÖ¸ÕëÎªÆğµã
+        }else if(strcmp(command, "reread") == 0)//é‡è®¾è¯»æŒ‡é’ˆä¸ºèµ·ç‚¹
         {
             char name[59];
             scanf("%s", name);
@@ -121,7 +121,7 @@ int main()
                 signal(mutex);
             signal(rmutex);
             */
-        }else if(strcmp(command, "write") == 0)//Ğ´ÎÄ¼ş,Ö»Ö§³Ö´ÓÄ©Î²Ğ´Èë
+        }else if(strcmp(command, "write") == 0)//å†™æ–‡ä»¶,åªæ”¯æŒä»æœ«å°¾å†™å…¥
         {
             char name[59];
             scanf("%s", name);
@@ -130,7 +130,7 @@ int main()
             //wait(mutex);
             write(name, content);
             //signal(mutex);
-        }else if(strcmp(command, "rewrite") == 0)//ÖØĞÂĞ´ÎÄ¼ş
+        }else if(strcmp(command, "rewrite") == 0)//é‡æ–°å†™æ–‡ä»¶
         {
             char name[59];
             scanf("%s", name);
@@ -153,9 +153,9 @@ int main()
 }
 void help()
 {
-    printf("Ä¿Â¼²Ù×÷ÃüÁî£º\nls\npwd\ncd dirName\nmkdir dirName\nrmdir dirName\nmv fileName newName\n");
-    printf("ÎÄ¼ş²Ù×÷ÃüÁî£º\ntouch fileName size(ÎÄ¼ş´óĞ¡) ep:touch a.txt 10\nrm fileName\n");
-    printf("read fileName size(¶ÁÈ¡×Ö½Ú³¤¶È) ´ÓÉÏÒ»´Î¿ªÊ¼¶Áep:read a.txt 10\nreread fileName size ÖØÍ·¿ªÊ¼¶Á\n");
-    printf("write fileName content(Ğ´ÈëÄÚÈİ) ´ÓÄ©Î²Ğ´Èëep:write a.txt helloworld\nrewrite fileName content ÖØÍ·¿ªÊ¼Ğ´\n");
+    printf("ç›®å½•æ“ä½œæŒ‡ä»¤ï¼š\nls\npwd\ncd dirName\nmkdir dirName\nrmdir dirName\nmv fileName newName\n");
+    printf("æ–‡ä»¶æ“ä½œå‘½ä»¤ï¼š\ntouch fileName size(æ–‡ä»¶å¤§å°) ep:touch a.txt 10\nrm fileName\n");
+    printf("read fileName size(è¯»å–å­—èŠ‚é•¿åº¦) ä»ä¸Šä¸€æ¬¡å¼€å§‹è¯»ep:read a.txt 10\nreread fileName size é‡å¤´å¼€å§‹è¯»\n");
+    printf("write fileName content(å†™å…¥å†…å®¹) ä»æœ«å°¾å†™å…¥ep:write a.txt helloworld\nrewrite fileName content é‡å¤´å¼€å§‹å†™\n");
     printf("\n");
 }
