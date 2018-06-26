@@ -14,6 +14,8 @@
 #include <string.h>
 //using namespace std;
 
+#define NONE                 "\e[0m"
+#define YELLOW               "\e[1;33m"
 //输出帮助
 void help();
 
@@ -29,9 +31,8 @@ int main()
     //创建根目录
     initRootDir();
 
-    help();
     char command[10];
-    printf("littleqi:\\>");
+    printf("[root@Linux /]" YELLOW "$ " NONE);
     scanf("%s", command);
     while(strcmp(command, "quit") != 0)
     {
@@ -144,7 +145,7 @@ int main()
             printf("command error\n");
         }
 
-        printf("littleqi:%s>", getPath());
+        printf("[root@Linux %s]" YELLOW "$ " NONE, getPath());
         scanf("%s", command);
     }
     exitSystem();

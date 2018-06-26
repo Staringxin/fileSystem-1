@@ -1,0 +1,2 @@
+g++ FileOperate.cpp DiskOperate.cpp main.cpp -o main
+./main
