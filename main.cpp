@@ -22,10 +22,7 @@ void help();
 
 int main()
 {
-    //---进程同步读写
-    int readCount = 0; //当前阅读人数
-    sem_t* rmutex; //readCount互斥访问
-    sem_t* mutex;  //进程对文件的互斥访问
+
 
     //初始化系统
     initSystem();
@@ -96,19 +93,7 @@ int main()
             int length;
             scanf("%d", &length);
             
-            sem_wait(rmutex);
-            if(readCount==0)
-                sem_wait(mutex);
-            readCount++;
-            sem_post(rmutex);
-            
             read(name, length);
-            
-            sem_wait(rmutex);
-            readCount--;
-            if(readCount == 0)
-                sem_post(mutex);
-            sem_post(rmutex);
             
         }
         else if (strcmp(command, "reread") == 0) //重设读指针为起点
@@ -118,19 +103,9 @@ int main()
             int length;
             scanf("%d", &length);
             
-            sem_wait(rmutex);
-            if(readCount==0)
-                sem_wait(mutex);
-            readCount++;
-            sem_post(rmutex);
+
             
             reread(name, length);
-            
-            sem_wait(rmutex);
-            readCount--;
-            if(readCount == 0)
-                sem_post(mutex);
-            sem_post(rmutex);
             
         }
         else if (strcmp(command, "write") == 0) //写文件,只支持从末尾写入
@@ -139,9 +114,7 @@ int main()
             scanf("%s", name);
             char content[1024];
             scanf("%s", content);
-            //wait(mutex);
             write(name, content);
-            //signal(mutex);
         }
         else if (strcmp(command, "rewrite") == 0) //重新写文件
         {
@@ -149,9 +122,7 @@ int main()
             scanf("%s", name);
             char content[1024];
             scanf("%s", content);
-            //wait(mutex);
             rewrite(name, content);
-            //signal(mutex);
         }
         else
         {

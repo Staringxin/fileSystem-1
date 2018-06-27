@@ -13,6 +13,7 @@ void initSystem()
     // 初始化盘块的位示图
     for (int i = 0; i < block_count; i++)
         systemStartAddr[i] = '0';
+    printf("%s", &systemStartAddr[0]);
     //用于存放位示图的空间已被占用
     int bitMapSize = block_count * sizeof(char) / block_szie; //位示图占用盘块数:100
     for (int i = 0; i < bitMapSize; i++)                      //从零开始分配
