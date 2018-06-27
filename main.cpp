@@ -12,6 +12,7 @@
 //#include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <semaphore.h>
 //using namespace std;
 
 #define NONE "\e[0m"
@@ -23,8 +24,8 @@ int main()
 {
     //---进程同步读写
     int readCount = 0; //当前阅读人数
-    semaphore rmutex = 1; //readCount互斥访问
-    semaphore mutex = 1;  //进程对文件的互斥访问
+    sem_t* rmutex; //readCount互斥访问
+    sem_t* mutex;  //进程对文件的互斥访问
 
     //初始化系统
     initSystem();
@@ -95,19 +96,19 @@ int main()
             int length;
             scanf("%d", &length);
             
-            wait(rmutex);
+            sem_wait(rmutex);
             if(readCount==0)
-                wait(mutex);
+                sem_wait(mutex);
             readCount++;
-            signal(rmutex);
+            sem_post(rmutex);
             
             read(name, length);
             
-            wait(rmutex);
+            sem_wait(rmutex);
             readCount--;
             if(readCount == 0)
-                signal(mutex);
-            signal(rmutex);
+                sem_post(mutex);
+            sem_post(rmutex);
             
         }
         else if (strcmp(command, "reread") == 0) //重设读指针为起点
@@ -117,19 +118,19 @@ int main()
             int length;
             scanf("%d", &length);
             
-            wait(rmutex)
+            sem_wait(rmutex);
             if(readCount==0)
-                wait(mutex);
+                sem_wait(mutex);
             readCount++;
-            signal(rmutex);
+            sem_post(rmutex);
             
             reread(name, length);
             
-            wait(rmutex);
+            sem_wait(rmutex);
             readCount--;
             if(readCount == 0)
-                signal(mutex);
-            signal(rmutex);
+                sem_post(mutex);
+            sem_post(rmutex);
             
         }
         else if (strcmp(command, "write") == 0) //写文件,只支持从末尾写入
